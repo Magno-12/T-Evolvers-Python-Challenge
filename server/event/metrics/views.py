@@ -23,22 +23,23 @@ class MetricApi(Resource):
             res = {}
 
             if not id:
-                metrics = Metrics.query.paginate(page, 10).items
+                metrics = Metrics.query.all()
             else:
                 metrics = [Metrics.query.get(id)]
             if not metrics:
                 res['code'] = "204"
-            
-            for metric in metrics:
+            else:
                 result = []
-                result.append({
-                    'id' : metric.id,
-                    'device_id': metric.device_id,
-                    'metric': metric.metrics,
-                    'timestamp': metric.timestamp,
-                })
-                res["data"] = result
-                res["code"] = 200
+                for metric in metrics:
+                    result.append({
+                        'id' : metric.id,
+                        'device_id': metric.device_id,
+                        'metric': metric.metrics,
+                        'timestamp': metric.timestamp,
+                    })
+            
+            res["data"] = result
+            res["code"] = 200
             return res
         except:
             abort(500)
@@ -51,6 +52,7 @@ class MetricApi(Resource):
         timestamp = args['timestamp']
 
         event = Metrics(device_id, metrics, timestamp)
+        print(event)
         db.session.add(event)
         db.session.commit()
 

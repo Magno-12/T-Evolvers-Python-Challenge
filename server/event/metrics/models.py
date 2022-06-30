@@ -2,7 +2,7 @@ from event import db
 
 class Metrics(db.Model):
     id=db.Column(db.Integer,primary_key=True)
-    device_id=db.Column(db.String(255),nullable=False,unique=True)
+    device_id=db.Column(db.String(255),nullable=False)
     metrics=db.Column(db.Text)
     timestamp=db.Column(db.Integer,nullable=False)
 
@@ -12,4 +12,4 @@ class Metrics(db.Model):
         self.timestamp = timestamp
 
     def __repr__(self):
-        return f"<Event device_id={self.device_id} metrics={self.metrics}>"
+        return f"<Event device_id={self.device_id} metrics={self.metrics}  timestamp={self.timestamp}>"
