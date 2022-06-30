@@ -30,15 +30,16 @@ class MetricApi(Resource):
                 res['code'] = "204"
             
             for metric in metrics:
-                res[metric.id] = {
+                result = []
+                result.append({
+                    'id' : metric.id,
                     'device_id': metric.device_id,
-                    'metric': metric.metric,
+                    'metric': metric.metrics,
                     'timestamp': metric.timestamp,
-                }
-            if not metrics:
-                return res
-            else:
-                return json.dumps(res)
+                })
+                res["data"] = result
+                res["code"] = 200
+            return res
         except:
             abort(500)
  
@@ -53,12 +54,11 @@ class MetricApi(Resource):
         db.session.add(event)
         db.session.commit()
 
-        res = {}
-        res[event.id] = {
+        return {
+            'event_id': event.id,
             'metrics': event.metrics,
             'device_id': event.device_id,
         }
-        return json.dumps(res)
  
 api.add_resource(
    MetricApi,
