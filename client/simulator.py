@@ -5,11 +5,13 @@ import requests
 import time
 import calendar
 import string
+import asyncio
 
 
 layout = [[sg.Text("Hello from PySimpleGUI")], [
-    sg.Button("START")], [sg.Button("STOP")]]
+    sg.Button("START")]]
 
+isRunning = False
 
 # Create the window
 window = sg.Window("Demo", layout)
@@ -21,7 +23,16 @@ while True:
     event, values = window.read()
     # End program if user closes window or
     # presses the OK button
+
     if event == "START":
+        isRunning = True
+    elif event == sg.WIN_CLOSED:
+        isRunning = False
+        break
+    else:
+        isRunning = False
+
+    while isRunning == True:
 
         metric = str(random.randint(10, 100)) + " kmg"
         timestamp = int(time.time())
@@ -35,11 +46,5 @@ while True:
         response = requests.post('http://127.0.0.1:5000/api/metric',
                                  data=payload)
         print(response)
-
-    if event == "STOP":
-        pass
-
-    if event == sg.WIN_CLOSED:
-        break
 
 window.close()
