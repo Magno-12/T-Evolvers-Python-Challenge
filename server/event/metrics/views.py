@@ -96,7 +96,13 @@ class MetricApi(Resource):
         return make_response("", 200)
 
     def delete(self, id=None):
+        if id is None:
+            return make_response("You must send the id", 400)
+
         get_metric = Metrics.query.get(id)
+
+        if not get_metric:
+            return make_response("This object not exist", 400)
         db.session.delete(get_metric)
         db.session.commit()
 
