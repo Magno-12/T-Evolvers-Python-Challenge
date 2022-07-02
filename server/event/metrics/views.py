@@ -56,6 +56,9 @@ class MetricApi(Resource):
         db.session.add(event)
         db.session.commit()
 
+        channel.basic_publish(exchange='',
+                                  routing_key='task_queue',
+                                  body=event)
         return {
             'event_id': event.id,
             'metrics': event.metrics,
