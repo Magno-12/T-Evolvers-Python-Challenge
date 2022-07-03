@@ -39,9 +39,20 @@ parameters: 'device_id'
 
 # EXECUTION OF THE PROGRAM
 
+1. $ git clone https://github.com/Magno-12/T-Evolvers-Python-Challenge
+2. install virtual enviroment: $ pip install virtualenv env
+3. activate the virtual environment: $ cd ./env/Scripts/source activate (this is in gitbash)
+4. install requirements file (env)$ pip install -r requirements.txt
 
+5. run flask server side
+6. Run development server (env)$ cd ./T-Evolvers/server/export FLASK_ENV=development
+7. Run server (env)$ cd t-evolvers/server/python run.py
+       
+8. run flask client side
+9. (env)$ cd ./T-Evolvers/client/python simulator.py
 
-## For server
+## Client program interface
 
-$ 
+![image](https://user-images.githubusercontent.com/66977118/177061023-867a8eb8-990f-4787-9d6a-a25f59bd2328.png)
 
+![image](https://user-images.githubusercontent.com/66977118/177061063-e1f98114-9f6d-47d4-913e-24b9621b5aad.png)
